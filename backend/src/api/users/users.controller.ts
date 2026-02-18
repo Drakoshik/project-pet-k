@@ -14,7 +14,7 @@ import { CreateUserDto, UpdateUserDto } from './users.contracts';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '../../utils/auth.guard.service';
 
-@UseGuards(AuthGuard)
+// @UseGuards(AuthGuard)
 @ApiTags('users')
 @Controller('users')
 export class UsersController {

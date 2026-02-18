@@ -25,7 +25,7 @@
 .underline {
     width: 61px;
     height: 6px;
-    background: linear-gradient(90deg, #7928CA, #FF0080);
+    background: linear-gradient(90deg, #7928CA, #00ffd9);
     border-radius: 3px;
 }
 
@@ -60,7 +60,7 @@
 .submit-container {
     display: flex;
     justify-content: center;
-    margin: 60px auto;
+    margin: 20px auto;
     gap: 10px;
 }
 
@@ -68,8 +68,8 @@
     width: 120px;
     height: 40px;
     border-radius: 16px;
-    border: none;
-    background: linear-gradient(90deg, #7928CA, #FF0080);
+    border: 3px;
+    background: linear-gradient(90deg, #7928CA, #00ffd9);
     color: white;
     font-size: 18px;
     font-weight: 600;
@@ -81,4 +81,11 @@
 
 .change {
     background: gray;
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    align-self: center;
+    padding: 0 10px;
 }

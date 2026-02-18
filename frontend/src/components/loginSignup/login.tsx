@@ -1,9 +1,97 @@
-﻿import React, { useState } from 'react';
+﻿import { useState } from 'react';
 import './login.css';
 import { FiLock, FiMail, FiUser } from 'react-icons/fi';
+import { authApi } from '../../api/authApi.ts';
+
+interface LoginProps {
+    email: string;
+    password: string;
+}
+
+interface SignUpProps {
+    email: string;
+    password: string;
+    name: string;
+    secondName?: string;
+}
 
 const Login = () => {
-    const [activeTab, setActiveTab] = useState<'signUp' | 'login'>('signUp');
+    const [activeTab, setActiveTab] = useState<'signUp' | 'login'>('login');
+    const [isLoading, setIsLoading] = useState(false);
+
+    const [error, setError] = useState<string | null>(null);
+
+    const [loginInfo, setLoginInfo] = useState<LoginProps>({
+        email: '',
+        password: '',
+    });
+
+    const [signUpInfo, setSignUpInfo] = useState<SignUpProps>({
+        email: '',
+        password: '',
+        name: '',
+        secondName: '',
+    });
+
+    const handleLogin = async () => {
+        setIsLoading(true);
+        try {
+            const loginData = await authApi.login(loginInfo);
+            console.log('Login successful:', loginData.data);
+            setError(null);
+        } catch (error) {
+            console.error('Login error:', error);
+            console.error('Login error:', error.message);
+            console.error('Login error:', error.status);
+            setError(
+                'Login failed. Please check your credentials and try again.'
+            );
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const handleSignUp = async () => {
+        setIsLoading(true);
+        try {
+            console.log('signUp info:', signUpInfo);
+            await authApi.register(signUpInfo);
+            setError(null);
+        } catch (error) {
+            console.error('signUp error:', error);
+            setError(
+                'Login failed. Please check your credentials and try again.'
+            );
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const handleLoginClick = () => {
+        if (activeTab === 'login') {
+            handleLogin();
+        } else {
+            setLoginInfo({
+                email: signUpInfo.email,
+                password: signUpInfo.password,
+            });
+            setActiveTab('login');
+        }
+    };
+
+    const handleSignUpClick = () => {
+        if (activeTab === 'signUp') {
+            handleSignUp();
+        } else {
+            setSignUpInfo({
+                email: loginInfo.email,
+                password: loginInfo.password,
+                name: '',
+                secondName: '',
+            });
+            setActiveTab('signUp');
+        }
+    };
 
     return (
         <div className="login-container">
@@ -13,24 +101,99 @@ const Login = () => {
                 </div>
                 <div className="underline"></div>
             </div>
+
             <div className="inputs">
-                <div className="input">
-                    <FiUser className="m-4" />
-                    <input type="text" placeholder="Username" />
-                </div>
+                {activeTab === 'signUp' && (
+                    <div className="input">
+                        <FiUser className="m-4" />
+                        <input
+                            type="text"
+                            placeholder="Username"
+                            value={signUpInfo.name}
+                            onChange={(e) =>
+                                setSignUpInfo({
+                                    ...signUpInfo,
+                                    name: e.target.value,
+                                })
+                            }
+                            disabled={isLoading}
+                        />
+                    </div>
+                )}
+
                 <div className="input">
                     <FiMail className="m-4" />
-                    <input type="email" placeholder="Email" />
+                    <input
+                        type="email"
+                        placeholder="Email"
+                        value={
+                            activeTab === 'signUp'
+                                ? signUpInfo.email
+                                : loginInfo.email
+                        }
+                        onChange={(e) => {
+                            if (activeTab === 'signUp') {
+                                setSignUpInfo({
+                                    ...signUpInfo,
+                                    email: e.target.value,
+                                });
+                            } else {
+                                setLoginInfo({
+                                    ...loginInfo,
+                                    email: e.target.value,
+                                });
+                            }
+                        }}
+                        disabled={isLoading}
+                    />
                 </div>
+
                 <div className="input">
                     <FiLock className="m-4" />
                     <input
                         type="password"
-                        className="input"
                         placeholder="Password"
+                        value={
+                            activeTab === 'signUp'
+                                ? signUpInfo.password
+                                : loginInfo.password
+                        }
+                        onChange={(e) => {
+                            if (activeTab === 'signUp') {
+                                setSignUpInfo({
+                                    ...signUpInfo,
+                                    password: e.target.value,
+                                });
+                            } else {
+                                setLoginInfo({
+                                    ...loginInfo,
+                                    password: e.target.value,
+                                });
+                            }
+                        }}
+                        disabled={isLoading}
                     />
                 </div>
+
+                {activeTab === 'signUp' && (
+                    <div className="input">
+                        <FiUser className="m-4" />
+                        <input
+                            type="text"
+                            placeholder="Second Name (optional)"
+                            value={signUpInfo.secondName}
+                            onChange={(e) =>
+                                setSignUpInfo({
+                                    ...signUpInfo,
+                                    secondName: e.target.value,
+                                })
+                            }
+                            disabled={isLoading}
+                        />
+                    </div>
+                )}
             </div>
+
             <div className="submit-container">
                 <div
                     className={
@@ -38,21 +201,23 @@ const Login = () => {
                             ? 'submit-button'
                             : 'submit-button change'
                     }
-                    onClick={() => setActiveTab('signUp')}
+                    onClick={handleSignUpClick}
                 >
-                    Sign Up
+                    {isLoading && activeTab === 'signUp' ? '...' : 'Sign Up'}
                 </div>
+
                 <div
                     className={
                         activeTab === 'login'
                             ? 'submit-button'
                             : 'submit-button change'
                     }
-                    onClick={() => setActiveTab('login')}
+                    onClick={handleLoginClick}
                 >
-                    Login
+                    {isLoading && activeTab === 'login' ? '...' : 'Login'}
                 </div>
             </div>
+            {error && <div className="error-message">{error}</div>}
         </div>
     );
 };
