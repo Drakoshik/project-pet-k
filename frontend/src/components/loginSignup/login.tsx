@@ -105,7 +105,7 @@ const Login = () => {
             <div className="inputs">
                 {activeTab === 'signUp' && (
                     <div className="input">
-                        <FiUser className="m-4" />
+                        <FiUser className="m-4 icon" />
                         <input
                             type="text"
                             placeholder="Username"
@@ -122,7 +122,7 @@ const Login = () => {
                 )}
 
                 <div className="input">
-                    <FiMail className="m-4" />
+                    <FiMail className="m-4 icon" />
                     <input
                         type="email"
                         placeholder="Email"
@@ -149,7 +149,7 @@ const Login = () => {
                 </div>
 
                 <div className="input">
-                    <FiLock className="m-4" />
+                    <FiLock className="m-4 icon" />
                     <input
                         type="password"
                         placeholder="Password"
@@ -177,7 +177,7 @@ const Login = () => {
 
                 {activeTab === 'signUp' && (
                     <div className="input">
-                        <FiUser className="m-4" />
+                        <FiUser className="m-4 icon" />
                         <input
                             type="text"
                             placeholder="Second Name (optional)"
