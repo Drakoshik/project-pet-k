@@ -1,4 +1,4 @@
-import React, { type ReactNode, useState } from 'react';
+import React, { type ReactNode, useEffect, useState } from 'react';
 import { FiSun, FiMoon, FiLogIn, FiLogOut } from 'react-icons/fi';
 import { useThemeContext } from './theme/ThemeProvider.tsx';
 import { KanbanBoard } from './components/kanban/KanbanBoard.tsx';

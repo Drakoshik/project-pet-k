@@ -2,6 +2,9 @@
 import './login.css';
 import { FiLock, FiMail, FiUser } from 'react-icons/fi';
 import { authApi } from '../../api/authApi.ts';
+import { useDispatch, useSelector } from 'react-redux';
+import { setToken } from '../../store/features/auth/authSlice.ts';
+import { useAuth } from '../../store/features/auth/authSelector.ts';
 
 interface LoginProps {
     email: string;
@@ -33,11 +36,15 @@ const Login = () => {
         secondName: '',
     });
 
+    const dispatch = useDispatch();
+    const accessToken = useAuth();
+
     const handleLogin = async () => {
         setIsLoading(true);
         try {
             const loginData = await authApi.login(loginInfo);
-            console.log('Login successful:', loginData.data);
+            dispatch(setToken(loginData.data.data.accessToken));
+            console.log(accessToken.accessToken);
             setError(null);
         } catch (error) {
             console.error('Login error:', error);
