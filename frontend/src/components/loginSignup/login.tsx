@@ -1,10 +1,16 @@
 ﻿import { useState } from 'react';
 import './login.css';
 import { FiLock, FiMail, FiUser } from 'react-icons/fi';
-import { authApi } from '../../api/authApi.ts';
-import { useDispatch, useSelector } from 'react-redux';
-import { setToken } from '../../store/features/auth/authSlice.ts';
-import { useAuth } from '../../store/features/auth/authSelector.ts';
+import { authApi } from '../../api/auth/authApi.ts';
+import { useDispatch } from 'react-redux';
+import {
+    setAccessToken,
+    setRefreshToken,
+} from '../../store/features/auth/authSlice.ts';
+
+interface LoginFormProps {
+    setIsVisible: (visible: boolean) => void;
+}
 
 interface LoginProps {
     email: string;
@@ -18,7 +24,7 @@ interface SignUpProps {
     secondName?: string;
 }
 
-const Login = () => {
+const Login = (loginFormProps: LoginFormProps) => {
     const [activeTab, setActiveTab] = useState<'signUp' | 'login'>('login');
     const [isLoading, setIsLoading] = useState(false);
 
@@ -37,19 +43,19 @@ const Login = () => {
     });
 
     const dispatch = useDispatch();
-    const accessToken = useAuth();
 
     const handleLogin = async () => {
         setIsLoading(true);
         try {
             const loginData = await authApi.login(loginInfo);
-            dispatch(setToken(loginData.data.data.accessToken));
-            console.log(accessToken.accessToken);
+
+            console.log('loginData:', loginData);
+            console.log(typeof loginData);
+            dispatch(setAccessToken(loginData.data.accessToken));
+            dispatch(setRefreshToken(loginData.data.refreshToken));
+            loginFormProps.setIsVisible(false);
             setError(null);
         } catch (error) {
-            console.error('Login error:', error);
-            console.error('Login error:', error.message);
-            console.error('Login error:', error.status);
             setError(
                 'Login failed. Please check your credentials and try again.'
             );

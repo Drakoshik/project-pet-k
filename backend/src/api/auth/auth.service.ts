@@ -39,10 +39,10 @@ export class AuthService {
   }
 
   public async authentication(LoginDto: LoginDto) {
-    const user = await this.userService.findByEmail(LoginDto.email);
+    const user = await this.userService.findByEmailWithPassword(LoginDto.email);
     if (!user) throw new BadRequestException('email: User not found');
 
-    const isPasswordValid = await this.authUtilsService.validatePassword(
+    const isPasswordValid = this.authUtilsService.validatePassword(
       LoginDto.password,
       user.password,
     );
@@ -67,7 +67,7 @@ export class AuthService {
     };
   }
 
-  public async refreshToken(refreshToken: string) {
+  public refreshToken(refreshToken: string) {
     const payload = this.authUtilsService.validateToken(refreshToken);
     if (!payload)
       throw new BadRequestException('refresh token: Invalid refresh token');

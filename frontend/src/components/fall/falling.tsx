@@ -1,7 +1,14 @@
-﻿import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+﻿import { motion, AnimatePresence } from 'framer-motion';
 
-const AdvancedFallingComponent = ({ isVisible, setIsVisible, children }) => {
+interface AdvancedFallingComponentProps {
+    isVisible: boolean;
+    setIsVisible: (visible: boolean) => void;
+    children: React.ReactNode;
+}
+
+const AdvancedFallingComponent = (
+    advancedFallingComponentProps: AdvancedFallingComponentProps
+) => {
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -46,7 +53,7 @@ const AdvancedFallingComponent = ({ isVisible, setIsVisible, children }) => {
     return (
         <div>
             <AnimatePresence>
-                {isVisible && (
+                {advancedFallingComponentProps.isVisible && (
                     <motion.div
                         initial="initial"
                         animate={['fall', 'tilt', 'final']}
@@ -58,7 +65,7 @@ const AdvancedFallingComponent = ({ isVisible, setIsVisible, children }) => {
                         }}
                         variants={itemVariants}
                     >
-                        {children}
+                        {advancedFallingComponentProps.children}
                     </motion.div>
                 )}
             </AnimatePresence>

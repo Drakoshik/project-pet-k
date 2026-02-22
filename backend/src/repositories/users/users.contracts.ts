@@ -7,3 +7,4 @@ export type UserDto = {
 };
 
 export type UserWithoutIdDto = Omit<UserDto, 'id'>;
+export type UserWithoutPassword = Omit<UserDto, 'password'>;
