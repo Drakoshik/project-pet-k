@@ -9,7 +9,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '../../utils/auth.guard.service';
-import { CreateListDTO } from './lists.contracts';
+import { CreateListDto } from './lists.contracts';
 import { ListsService } from './lists.service';
 
 @UseGuards(AuthGuard)
@@ -19,7 +19,7 @@ export class ListsController {
   constructor(private readonly listsService: ListsService) {}
 
   @Post()
-  create(@Body() listWithoutId: CreateListDTO) {
+  create(@Body() listWithoutId: CreateListDto) {
     return this.listsService.create(listWithoutId);
   }
 

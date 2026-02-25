@@ -1,22 +1,22 @@
 ﻿import { Injectable } from '@nestjs/common';
 import { ProjectsRepository } from '../../repositories/Projects/projects.repository';
-import { CardsResponseDTO, CreateCardDTO } from '../cards/cards.contracts';
-import { CreateListDTO, ListResponseDTO } from './lists.contracts';
+import { CardsResponseDto, CreateCardDto } from '../cards/cards.contracts';
+import { CreateListDto, ListResponseDto } from './lists.contracts';
 import { ListsRepository } from '../../repositories/Lists/lists.repository';
 
 @Injectable()
 export class ListsService {
   constructor(private listsRepository: ListsRepository) {}
 
-  public async findAll(): Promise<ListResponseDTO[] | null> {
+  public async findAll(): Promise<ListResponseDto[] | null> {
     return this.listsRepository.findAll();
   }
 
-  public async getOne(id: number): Promise<ListResponseDTO | null> {
+  public async getOne(id: number): Promise<ListResponseDto | null> {
     return this.listsRepository.getOne(id);
   }
 
-  public async create(dto: CreateListDTO): Promise<ListResponseDTO> {
+  public async create(dto: CreateListDto): Promise<ListResponseDto> {
     return this.listsRepository.create(dto);
   }
 

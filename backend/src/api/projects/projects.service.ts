@@ -1,7 +1,7 @@
 ﻿import { Injectable } from '@nestjs/common';
 import { ProjectsRepository } from '../../repositories/Projects/projects.repository';
-import { CreateListDTO, ListResponseDTO } from '../Lists/lists.contracts';
-import { ProjectResponseDTO } from './projects.contracts';
+import { CreateListDto, ListResponseDto } from '../lists/lists.contracts';
+import { CreateProjectDTO, ProjectResponseDTO } from './projects.contracts';
 
 @Injectable()
 export class ProjectsService {
@@ -15,7 +15,7 @@ export class ProjectsService {
     return this.projectsRepository.getOne(id);
   }
 
-  public async create(dto: CreateListDTO): Promise<ProjectResponseDTO> {
+  public async create(dto: CreateProjectDTO): Promise<ProjectResponseDTO> {
     return this.projectsRepository.create(dto);
   }
 

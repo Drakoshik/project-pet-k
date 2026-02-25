@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '../../utils/auth.guard.service';
 import { CreateUserDto } from '../users/users.contracts';
-import { CreateCardDTO } from './cards.contracts';
+import { CreateCardDto } from './cards.contracts';
 
 @UseGuards(AuthGuard)
 @ApiTags('cards')
@@ -20,7 +20,7 @@ export class CardsController {
   constructor(private readonly cardsService: CardsRepository) {}
 
   @Post()
-  create(@Body() cardWithoutId: CreateCardDTO) {
+  create(@Body() cardWithoutId: CreateCardDto) {
     return this.cardsService.create(cardWithoutId);
   }
 
