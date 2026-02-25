@@ -14,9 +14,11 @@ function App(): ReactNode {
     const [authenticated, setAuthenticated] = useState(false);
     const token = useAuth();
     useEffect(() => {
-        console.log(token.accessToken);
+        console.log(`app useEffect ${token.accessToken}`);
         if (token.accessToken) {
             setAuthenticated(true);
+        } else {
+            setAuthenticated(false);
         }
     }, [token]);
 

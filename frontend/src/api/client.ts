@@ -3,6 +3,11 @@
     type AxiosRequestConfig,
     type AxiosResponse,
 } from 'axios';
+import {
+    setAccessToken,
+    setRefreshToken,
+} from '../store/features/auth/authSlice.ts';
+import { store } from '../store/configureStore.ts';
 
 interface CustomAxiosInstance extends AxiosInstance {
     post<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T>;
@@ -33,6 +38,8 @@ apiClient.interceptors.response.use(
         if (error.response?.status === 401) {
             localStorage.removeItem('accessToken');
             localStorage.removeItem('refreshToken');
+            store.dispatch(setAccessToken(''));
+            store.dispatch(setRefreshToken(''));
         }
         return Promise.reject(error);
     }
