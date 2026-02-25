@@ -1,11 +1,15 @@
 ﻿import { Injectable } from '@nestjs/common';
 import { ProjectsRepository } from '../../repositories/Projects/projects.repository';
-import { CreateListDto, ListResponseDto } from '../lists/lists.contracts';
 import { CreateProjectDTO, ProjectResponseDTO } from './projects.contracts';
+import { RequestContext } from '../../utils/request-context';
+import { ProjectMembersService } from '../projectMembers/projectMembers.service';
 
 @Injectable()
 export class ProjectsService {
-  constructor(private projectsRepository: ProjectsRepository) {}
+  constructor(
+    private projectsRepository: ProjectsRepository,
+    private projectMembersService: ProjectMembersService,
+  ) {}
 
   public async findAll(): Promise<ProjectResponseDTO[] | null> {
     return this.projectsRepository.findAll();
@@ -16,7 +20,14 @@ export class ProjectsService {
   }
 
   public async create(dto: CreateProjectDTO): Promise<ProjectResponseDTO> {
-    return this.projectsRepository.create(dto);
+    const userId = RequestContext.get<number>('userId')!;
+    const project = await this.projectsRepository.create(dto);
+    await this.projectMembersService.create({
+      projectId: project.id,
+      userId,
+      role: 'OWNER',
+    });
+    return project;
   }
 
   public async delete(id: number) {
