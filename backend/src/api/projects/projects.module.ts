@@ -7,7 +7,7 @@ import { ProjectMembersModule } from '../projectMembers/projectMembers.module';
 
 @Global()
 @Module({
-  imports: [ProjectRepositoryModule, ProjectMembersModule],
+  imports: [ProjectRepositoryModule],
   controllers: [ProjectsController],
   providers: [ProjectsService],
   exports: [ProjectsService],

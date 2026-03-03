@@ -13,6 +13,10 @@ import { ListRepositoryModule } from './repositories/Lists/lists.repository.modu
 import { MessageRepositoryModule } from './repositories/Messages/messages.repository.module';
 import { ProjectMemberRepositoryModule } from './repositories/ProjectMembers/projectMembers.repository.module';
 import { ProjectRepositoryModule } from './repositories/Projects/projects.repository.module';
+import { ProjectMembersModule } from './api/projectMembers/projectMembers.module';
+import { ProjectsModule } from './api/projects/projects.module';
+import { CardsModule } from './api/cards/cards.module';
+import { ListsModule } from './api/lists/lists.module';
 
 @Module({
   imports: [
@@ -20,6 +24,10 @@ import { ProjectRepositoryModule } from './repositories/Projects/projects.reposi
     UsersModule,
     AuthModule,
     AuthUtilsModule,
+    ProjectsModule,
+    ProjectMembersModule,
+    CardsModule,
+    ListsModule,
     WsModule,
     UserRepositoryModule,
     CardRepositoryModule,

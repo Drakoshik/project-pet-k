@@ -1,4 +1,4 @@
-﻿import { Injectable } from '@nestjs/common';
+﻿import { Injectable, NotFoundException } from '@nestjs/common';
 import { ProjectsRepository } from '../../repositories/Projects/projects.repository';
 import { CreateProjectDTO, ProjectResponseDTO } from './projects.contracts';
 import { RequestContext } from '../../utils/request-context';
@@ -21,13 +21,8 @@ export class ProjectsService {
 
   public async create(dto: CreateProjectDTO): Promise<ProjectResponseDTO> {
     const userId = RequestContext.get<number>('userId')!;
-    const project = await this.projectsRepository.create(dto);
-    await this.projectMembersService.create({
-      projectId: project.id,
-      userId,
-      role: 'OWNER',
-    });
-    return project;
+    if (!userId) throw new NotFoundException();
+    return this.projectsRepository.createWithOwner(dto, userId);
   }
 
   public async delete(id: number) {

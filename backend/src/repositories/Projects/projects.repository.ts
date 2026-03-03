@@ -9,4 +9,8 @@ export abstract class ProjectsRepository {
     id: number,
     dto: Partial<ProjectWithoutIdDto>,
   ): Promise<ProjectDto>;
+  public abstract createWithOwner(
+    projectData: ProjectWithoutIdDto,
+    ownerId: number,
+  ): Promise<ProjectDto>;
 }

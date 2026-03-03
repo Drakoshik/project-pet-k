@@ -2,11 +2,11 @@
 
 import { ProjectMembersService } from './projectMembers.service';
 import { ProjectMembersController } from './projectMembers.controller';
-import { ListRepositoryModule } from '../../repositories/Lists/lists.repository.module';
+import { ProjectMemberRepositoryModule } from '../../repositories/ProjectMembers/projectMembers.repository.module';
 
 @Global()
 @Module({
-  imports: [ListRepositoryModule],
+  imports: [ProjectMemberRepositoryModule],
   controllers: [ProjectMembersController],
   providers: [ProjectMembersService],
   exports: [ProjectMembersService],

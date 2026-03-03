@@ -50,4 +50,25 @@ export class ProjectsPrismaRepository extends ProjectsRepository {
       data,
     });
   }
+
+  public async createWithOwner(
+    projectData: ProjectWithoutIdDto,
+    ownerId: number,
+  ): Promise<ProjectDto> {
+    return this.databaseService.$transaction(async (prisma) => {
+      const project = await prisma.project.create({
+        data: projectData,
+      });
+
+      await prisma.projectMember.create({
+        data: {
+          projectId: project.id,
+          userId: ownerId,
+          role: 'OWNER',
+        },
+      });
+
+      return project;
+    });
+  }
 }
