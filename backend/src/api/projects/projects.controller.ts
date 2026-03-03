@@ -11,12 +11,13 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '../../utils/auth.guard.service';
 import { CreateProjectDTO } from './projects.contracts';
+import { ProjectsService } from './projects.service';
 
 @UseGuards(AuthGuard)
 @ApiTags('projects')
 @Controller('projects')
 export class ProjectsController {
-  constructor(private readonly projectsService: ProjectsRepository) {}
+  constructor(private readonly projectsService: ProjectsService) {}
 
   @Get(':id')
   findById(@Param('id') id: number) {

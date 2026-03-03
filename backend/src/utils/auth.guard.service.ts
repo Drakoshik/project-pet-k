@@ -30,7 +30,7 @@ export class AuthGuard implements CanActivate {
 
       RequestContext.set('userId', user.id);
 
-      console.log(RequestContext.get<number>('userId'));
+      // console.log(RequestContext.get<number>('userId'));
       return true;
     } catch (error) {
       throw new UnauthorizedException(error.message);

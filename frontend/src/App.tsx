@@ -74,7 +74,13 @@ function App(): ReactNode {
 
             <main className="flex-grow px-4 py-6 p-8 ">
                 <div className="mx-auto ">
-                    <BoardHandler />
+                    {authenticated ? (
+                        <BoardHandler />
+                    ) : (
+                        <div className="flex justify-center items-center h-64 text-xl text-gray-500">
+                            Login to see your boards
+                        </div>
+                    )}
                 </div>
             </main>
         </div>

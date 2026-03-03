@@ -2,14 +2,10 @@
 import { ProjectsRepository } from '../../repositories/Projects/projects.repository';
 import { CreateProjectDTO, ProjectResponseDTO } from './projects.contracts';
 import { RequestContext } from '../../utils/request-context';
-import { ProjectMembersService } from '../projectMembers/projectMembers.service';
 
 @Injectable()
 export class ProjectsService {
-  constructor(
-    private projectsRepository: ProjectsRepository,
-    private projectMembersService: ProjectMembersService,
-  ) {}
+  constructor(private projectsRepository: ProjectsRepository) {}
 
   public async findAll(): Promise<ProjectResponseDTO[] | null> {
     return this.projectsRepository.findAll();
