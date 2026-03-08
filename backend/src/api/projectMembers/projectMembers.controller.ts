@@ -3,9 +3,8 @@ import {
   Body,
   Controller,
   Delete,
-  Get,
-  Param,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '../../utils/auth.guard.service';
@@ -23,8 +22,8 @@ export class ProjectMembersController {
     return this.projectMembersService.create(projectMemberWithoutId);
   }
 
-  @Delete()
-  delete(@Param('id') id: number) {
+  @Delete(':id')
+  delete(@Query('id') id: number) {
     return this.projectMembersService.delete(id);
   }
 }

@@ -2,7 +2,7 @@
   "name": "project-pet-k",
   "private": true,
   "scripts": {
-    "dev:backend": "cd backend && npm run start",
+    "dev:backend": "cd backend && npm run start:dev",
     "dev:frontend": "cd frontend && npm run dev",
     "dev": "npm-run-all --parallel dev:backend dev:frontend",
     "setup:backend": "cd backend && npm ci && npm run first:setup",

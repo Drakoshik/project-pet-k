@@ -20,6 +20,10 @@ export class KanbanDataService {
         this.containers = containerData;
     }
 
+    public setContainers(containers: Container[]): void {
+        this.containers = containers;
+    }
+
     public static getInstance(): KanbanDataService {
         if (!KanbanDataService.instance) {
             KanbanDataService.instance = new KanbanDataService();
