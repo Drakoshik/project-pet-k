@@ -1,26 +1,30 @@
 ﻿import type { UniqueIdentifier } from '@dnd-kit/core';
 import containerData from '../../../mocks/Containers.ts';
 
-export interface Item {
+export interface Card {
     id: UniqueIdentifier;
-    content: string;
+    title?: string;
+    description?: string;
+    position?: number;
+    assigneeId?: number;
 }
 
-export interface Container {
+export interface List {
     id: string;
     title: string;
-    items: Item[];
+    position?: number;
+    items: Card[];
 }
 
 export class KanbanDataService {
     private static instance: KanbanDataService;
-    private containers: Container[];
+    private containers: List[];
 
     private constructor() {
         this.containers = containerData;
     }
 
-    public setContainers(containers: Container[]): void {
+    public setContainers(containers: List[]): void {
         this.containers = containers;
     }
 
@@ -31,12 +35,12 @@ export class KanbanDataService {
         return KanbanDataService.instance;
     }
 
-    public getContainers(): Container[] {
+    public getContainers(): List[] {
         return this.containers;
     }
 
-    public addContainer(title: string): Container {
-        const newContainer: Container = {
+    public addContainer(title: string): List {
+        const newContainer: List = {
             id: `container-${Date.now()}`,
             title: title || 'New Column',
             items: [],
@@ -45,7 +49,7 @@ export class KanbanDataService {
         return newContainer;
     }
 
-    public updateContainers(containers: Container[]): void {
+    public updateContainers(containers: List[]): void {
         this.containers = containers;
     }
 
@@ -55,15 +59,15 @@ export class KanbanDataService {
         );
     }
 
-    public addItem(containerId: string, content: string): Item {
+    public addItem(containerId: string, content: string): Card {
         const container = this.containers.find((c) => c.id === containerId);
         if (!container) {
             throw new Error(`Container with id ${containerId} not found`);
         }
 
-        const newItem: Item = {
+        const newItem: Card = {
             id: `task-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-            content: content.trim(),
+            description: content.trim(),
         };
 
         container.items.push(newItem);
@@ -88,7 +92,7 @@ export class KanbanDataService {
         if (container) {
             const item = container.items.find((i) => i.id === itemId);
             if (item) {
-                item.content = newContent.trim();
+                item.description = newContent.trim();
             }
         }
     }

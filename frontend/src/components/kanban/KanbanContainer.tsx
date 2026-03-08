@@ -3,7 +3,7 @@ import {
     SortableContext,
     verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
-import type { Item } from './types/kanban.ts';
+import type { Card } from './types/kanban.ts';
 import { Trash2, Plus } from 'lucide-react';
 import { useState } from 'react';
 import { KanbanItem } from './KanbanItem.tsx';
@@ -11,7 +11,7 @@ import { KanbanItem } from './KanbanItem.tsx';
 interface KanbanContainerProps {
     id: string;
     title: string;
-    items: Item[];
+    items: Card[];
     onRemoveContainer?: () => void;
     onAddItem?: (containerId: string, content: string) => void;
     onRemoveItem?: (containerId: string, itemId: UniqueIdentifier) => void;
@@ -39,7 +39,7 @@ export function KanbanContainer({
 
     const handleAddTask = () => {
         if (newTaskContent.trim() && onAddItem) {
-            onAddItem(id, newTaskContent); // ← Правильный вызов
+            onAddItem(id, newTaskContent);
             setNewTaskContent('');
             setIsAddingTask(false);
         }
@@ -89,7 +89,7 @@ export function KanbanContainer({
                             <KanbanItem
                                 key={item.id}
                                 id={item.id}
-                                content={item.content}
+                                content={item.description}
                                 onRemove={(itemId: UniqueIdentifier) =>
                                     onRemoveItem?.(id, itemId)
                                 }

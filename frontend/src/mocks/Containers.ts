@@ -1,22 +1,22 @@
-﻿import type { Container } from '../components/kanban/types/kanban.ts';
+﻿import type { List } from '../components/kanban/types/kanban.ts';
 
-const containerData: Container[] = [
+const containerData: List[] = [
     {
         id: 'todo',
         title: 'To Do',
         items: [
             {
                 id: 'task-1',
-                content: 'Research @dnd-kit',
+                description: 'Research @dnd-kit',
             },
             {
                 id: 'task-2',
-                content:
+                description:
                     'Create basic example Create basic example Create basic example Create basic example Create basic example Create basic example',
             },
             {
                 id: 'task-3',
-                content: 'Write tutorial',
+                description: 'Write tutorial',
             },
         ],
     },
@@ -26,7 +26,7 @@ const containerData: Container[] = [
         items: [
             {
                 id: 'task-4',
-                content: 'Record demo video',
+                description: 'Record demo video',
             },
         ],
     },
@@ -37,7 +37,7 @@ const containerData: Container[] = [
         items: [
             {
                 id: 'task-5',
-                content: 'Setup project',
+                description: 'Setup project',
             },
         ],
     },
@@ -47,7 +47,7 @@ const containerData: Container[] = [
         items: [
             {
                 id: 'task-51',
-                content: 'Setup project',
+                description: 'Setup project',
             },
         ],
     },
@@ -57,7 +57,7 @@ const containerData: Container[] = [
         items: [
             {
                 id: 'task-52',
-                content: 'Setup project',
+                description: 'Setup project',
             },
         ],
     },

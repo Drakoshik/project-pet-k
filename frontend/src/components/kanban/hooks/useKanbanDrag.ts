@@ -5,12 +5,11 @@ import type {
     DragEndEvent,
     DragCancelEvent,
 } from '@dnd-kit/core';
-import { type Container, KanbanDataService } from '../types/kanban.ts';
+import { type List, KanbanDataService } from '../types/kanban.ts';
 import { arrayMove } from '@dnd-kit/sortable';
 
-export function useKanbanDrag(initialContainers: Container[]) {
-    const [containers, setContainers] =
-        useState<Container[]>(initialContainers);
+export function useKanbanDrag(initialContainers: List[]) {
+    const [containers, setContainers] = useState<List[]>(initialContainers);
     const [activeId, setActiveId] = useState<string | null>(null);
     const kanbanDataService = KanbanDataService.getInstance();
 
