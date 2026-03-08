@@ -1,9 +1,16 @@
 ﻿import { useSelector } from 'react-redux';
+import type { RootState } from '../../configureStore.ts';
 
 export const useAuth = () => {
-    const accessToken = useSelector((state: any) => state.auth.accessToken);
-    const refreshToken = useSelector((state: any) => state.auth.refreshToken);
-    const isAuthChecked = useSelector((state: any) => state.auth.isAuthChecked);
+    const accessToken = useSelector(
+        (state: RootState) => state.auth.accessToken
+    );
+    const refreshToken = useSelector(
+        (state: RootState) => state.auth.refreshToken
+    );
+    const isAuthChecked = useSelector(
+        (state: RootState) => state.auth.isAuthChecked
+    );
 
     return {
         accessToken,

@@ -10,27 +10,27 @@ export class ProjectsPrismaRepository extends ProjectsRepository {
   }
 
   public async getOne(id: number): Promise<ProjectDto | null> {
-    const user = await this.databaseService.project.findUnique({
+    const project = await this.databaseService.project.findUnique({
       where: {
         id,
       },
     });
 
-    return user;
+    return project;
   }
 
   public async findAll(): Promise<ProjectDto[]> {
-    const user = await this.databaseService.project.findMany();
+    const project = await this.databaseService.project.findMany();
 
-    return user;
+    return project;
   }
 
   public async create(data: ProjectWithoutIdDto): Promise<ProjectDto> {
-    const user = await this.databaseService.project.create({
+    const project = await this.databaseService.project.create({
       data,
     });
 
-    return user;
+    return project;
   }
 
   public async delete(id: number): Promise<void> {
