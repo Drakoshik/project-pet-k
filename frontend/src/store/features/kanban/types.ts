@@ -22,6 +22,12 @@ export interface Card {
     assigneeId?: number;
 }
 
+export interface NormalizedProject {
+    project: Project;
+    lists: List[];
+    cards: Card[];
+}
+
 export interface NormalizedState {
     projects: {
         byId: Record<number, Project>;

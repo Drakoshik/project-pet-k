@@ -4,9 +4,9 @@ import {
   Post,
   Body,
   Patch,
-  Param,
   Delete,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 
 import { UsersService } from './users.service';
@@ -32,7 +32,7 @@ export class UsersController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Query('id') id: number) {
     return this.usersService.findById(+id);
   }
 

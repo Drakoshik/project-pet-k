@@ -9,4 +9,5 @@ export abstract class ListsRepository {
     id: number,
     dto: Partial<ListWithoutIdDto>,
   ): Promise<ListDto>;
+  public abstract getListsByProjectId(projectId: number): Promise<ListDto[]>;
 }

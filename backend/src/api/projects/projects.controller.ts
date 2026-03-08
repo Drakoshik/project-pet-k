@@ -1,16 +1,16 @@
 ﻿import { ApiTags } from '@nestjs/swagger';
-import { ProjectsRepository } from '../../repositories/Projects/projects.repository';
 import {
   Body,
   Controller,
   Delete,
   Get,
-  Param,
+  NotFoundException,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '../../utils/auth.guard.service';
-import { CreateProjectDTO } from './projects.contracts';
+import { CreateProjectDTO, GetProjectsRequestDTO } from './projects.contracts';
 import { ProjectsService } from './projects.service';
 
 @UseGuards(AuthGuard)
@@ -19,14 +19,39 @@ import { ProjectsService } from './projects.service';
 export class ProjectsController {
   constructor(private readonly projectsService: ProjectsService) {}
 
-  @Get(':id')
-  findById(@Param('id') id: number) {
-    return this.projectsService.getOne(id);
-  }
-
   @Get()
-  findAll() {
-    return this.projectsService.findAll();
+  async getProjects(@Query() query: GetProjectsRequestDTO) {
+    console.log('Received query:', query.id);
+    query.id = Number(query.id);
+
+    if (query.id) {
+      if (query.full) {
+        const project = await this.projectsService.getProjectsFully(query.id);
+        if (!project) {
+          throw new NotFoundException(`Project with ID ${query.id} not found`);
+        }
+        return {
+          success: true,
+          data: project,
+        };
+      }
+
+      const project = await this.projectsService.getOne(query.id);
+      if (!project) {
+        throw new NotFoundException(`Project with ID ${query.id} not found`);
+      }
+      return {
+        success: true,
+        data: project,
+      };
+    }
+
+    const projects = await this.projectsService.findAll();
+
+    return {
+      success: true,
+      data: projects,
+    };
   }
 
   @Post()
@@ -34,8 +59,8 @@ export class ProjectsController {
     return this.projectsService.create(projectWithoutId);
   }
 
-  @Delete()
-  delete(@Param('id') id: number) {
+  @Delete(':id')
+  delete(@Query('id') id: number) {
     return this.projectsService.delete(id);
   }
 }

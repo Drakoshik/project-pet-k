@@ -7,16 +7,27 @@ import AdvancedFallingComponent from './components/fall/falling.tsx';
 import BoardHandler from './components/boards/BoardHandler.tsx';
 import { useAuth } from './store/features/auth/authSelector.ts';
 import { userApi } from './api/user/userApi.ts';
+import { projectsApi } from './api/projects/api.ts';
+import { setProjectData } from './store/features/kanban/kanbanSlice.ts';
+import { useDispatch } from 'react-redux';
 
 function App(): ReactNode {
     const { isDarkMode, toggleDarkMode } = useThemeContext();
     const [modalOpen, setModalOpen] = useState(false);
     const [authenticated, setAuthenticated] = useState(false);
     const token = useAuth();
+    const dispatch = useDispatch();
+
     useEffect(() => {
         console.log(`app useEffect ${token.accessToken}`);
         if (token.accessToken) {
             setAuthenticated(true);
+            projectsApi
+                .getFullProject({ id: 2, fullInfo: true })
+                .then((res) => {
+                    console.log(res);
+                    dispatch(setProjectData(res.data));
+                });
         } else {
             setAuthenticated(false);
         }

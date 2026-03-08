@@ -45,9 +45,17 @@ export class ListsPrismaRepository extends ListsRepository {
     id: number,
     data: Partial<ListWithoutIdDto>,
   ): Promise<ListDto> {
-    return await this.databaseService.list.update({
+    return this.databaseService.list.update({
       where: { id },
       data,
+    });
+  }
+
+  public async getListsByProjectId(projectId: number): Promise<ListDto[]> {
+    return this.databaseService.list.findMany({
+      where: {
+        projectId,
+      },
     });
   }
 }

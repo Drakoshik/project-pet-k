@@ -40,4 +40,33 @@ export class CardsPrismaRepository extends CardsRepository {
       },
     });
   }
+
+  public async getCardsByListId(listId: number): Promise<CardDto[]> {
+    const cards = await this.databaseService.card.findMany({
+      where: {
+        listId,
+      },
+    });
+
+    return cards;
+  }
+
+  public async getCardsByListIds(listIds: number[]): Promise<CardDto[]> {
+    if (!listIds || listIds.length === 0) {
+      return [];
+    }
+
+    const cards = await this.databaseService.card.findMany({
+      where: {
+        listId: {
+          in: listIds, // отримуємо всі картки, де listId в масиві
+        },
+      },
+      orderBy: {
+        position: 'asc', // сортуємо за позицією
+      },
+    });
+
+    return cards;
+  }
 }

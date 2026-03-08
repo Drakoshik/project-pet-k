@@ -5,4 +5,6 @@ export abstract class CardsRepository {
   public abstract create(data: CardWithoutIdDto): Promise<CardDto>;
   public abstract delete(id: number): Promise<void>;
   public abstract findAll(): Promise<CardDto[]>;
+  public abstract getCardsByListId(listId: number): Promise<CardDto[]>;
+  public abstract getCardsByListIds(listId: number[]): Promise<CardDto[]>;
 }

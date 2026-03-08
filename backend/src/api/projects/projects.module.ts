@@ -3,11 +3,16 @@
 import { ProjectsService } from './projects.service';
 import { ProjectRepositoryModule } from '../../repositories/Projects/projects.repository.module';
 import { ProjectsController } from './projects.controller';
-import { ProjectMembersModule } from '../projectMembers/projectMembers.module';
+import { ListRepositoryModule } from '../../repositories/Lists/lists.repository.module';
+import { CardRepositoryModule } from '../../repositories/Cards/cards.repository.module';
 
 @Global()
 @Module({
-  imports: [ProjectRepositoryModule],
+  imports: [
+    ProjectRepositoryModule,
+    ListRepositoryModule,
+    CardRepositoryModule,
+  ],
   controllers: [ProjectsController],
   providers: [ProjectsService],
   exports: [ProjectsService],

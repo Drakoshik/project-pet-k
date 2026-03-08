@@ -33,7 +33,7 @@ export class ListsController {
     return this.listsService.findAll();
   }
 
-  @Delete()
+  @Delete(':id')
   delete(@Param('id') id: number) {
     return this.listsService.delete(id);
   }
