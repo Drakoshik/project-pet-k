@@ -10,6 +10,7 @@ import { userApi } from './api/user/userApi.ts';
 import { projectsApi } from './api/projects/api.ts';
 import { setProjectData } from './store/features/kanban/kanbanSlice.ts';
 import { useDispatch } from 'react-redux';
+import { useProjectWithFullData } from './store/features/kanban/kanbanHooks.ts';
 
 function App(): ReactNode {
     const { isDarkMode, toggleDarkMode } = useThemeContext();
@@ -17,15 +18,14 @@ function App(): ReactNode {
     const [authenticated, setAuthenticated] = useState(false);
     const token = useAuth();
     const dispatch = useDispatch();
+    const fullProject = useProjectWithFullData(0);
 
     useEffect(() => {
-        console.log(`app useEffect ${token.accessToken}`);
         if (token.accessToken) {
             setAuthenticated(true);
             projectsApi
                 .getFullProject({ id: 2, fullInfo: true })
                 .then((res) => {
-                    console.log(res);
                     dispatch(setProjectData(res.data));
                 });
         } else {
@@ -58,6 +58,7 @@ function App(): ReactNode {
                                 if (authenticated) {
                                     const users = await userApi.getUsers();
                                     console.log(users);
+                                    console.log(fullProject);
                                 } else {
                                     setModalOpen(true);
                                 }

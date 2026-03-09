@@ -1,5 +1,6 @@
 ﻿import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { Card, List, NormalizedState, Project } from './types';
+import type { Card, List, Project } from './types/basicTypes.ts';
+import type { NormalizedState } from './types/normalizedTypes.ts';
 
 const initialState: NormalizedState = {
     projects: { byId: {}, allIds: [] },

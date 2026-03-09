@@ -1,21 +1,21 @@
 ﻿import { useEffect, useState } from 'react';
 import { KanbanBoard } from '../kanban/KanbanBoard.tsx';
-import { useKanban } from '../../store/features/kanban/kanbanSelector.ts';
+import {
+    useProjects,
+    useProjectWithFullData,
+} from '../../store/features/kanban/kanbanHooks.ts';
 
 function BoardHandler() {
     const [activeTab, setActiveTab] = useState<
         'basic' | 'sortable' | 'multiple'
     >('multiple');
 
-    const kanban = useKanban();
+    const projects = useProjects();
 
-    useEffect(() => {
-        console.log('kanban updated:', kanban);
-        console.log('Projects:', kanban.projects);
-    }, [kanban]);
+    useEffect(() => {}, [projects]);
 
-    const firstProject = kanban.projects.allIds[0]
-        ? kanban.projects.byId[kanban.projects.allIds[0]]
+    const firstProject = projects.allIds[0]
+        ? projects.byId[projects.allIds[0]]
         : null;
 
     if (!firstProject) {

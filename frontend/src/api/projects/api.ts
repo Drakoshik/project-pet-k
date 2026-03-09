@@ -1,6 +1,6 @@
 ﻿import apiClient from '../client.ts';
 import type { GetProjectsData } from './types.ts';
-import type { NormalizedProject } from '../../store/features/kanban/types.ts';
+import type { NormalizedProject } from '../../store/features/kanban/types/basicTypes.ts';
 
 export const projectsApi = {
     getFullProject: (data: GetProjectsData): Promise<NormalizedProject> => {
