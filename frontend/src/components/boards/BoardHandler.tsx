@@ -11,8 +11,12 @@ function BoardHandler() {
     >('multiple');
 
     const projects = useProjects();
+    const project = useProjectWithFullData(2);
 
-    useEffect(() => {}, [projects]);
+    useEffect(() => {
+        console.log('Projects updated:', projects);
+        console.log('Projects updated:', project);
+    }, [projects]);
 
     const firstProject = projects.allIds[0]
         ? projects.byId[projects.allIds[0]]

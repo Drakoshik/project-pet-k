@@ -21,7 +21,6 @@ const kanbanSlice = createSlice({
             }>
         ) => {
             const { project, lists, cards } = action.payload;
-            console.log('setProjectData action payload:', action.payload);
 
             state.projects.byId[project.id] = project;
             if (!state.projects.allIds.includes(project.id)) {

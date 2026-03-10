@@ -21,7 +21,6 @@ export class ProjectsController {
 
   @Get()
   async getProjects(@Query() query: GetProjectsRequestDTO) {
-    console.log('Received query:', query.id);
     query.id = Number(query.id);
 
     if (query.id) {

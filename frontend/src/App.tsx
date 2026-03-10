@@ -18,7 +18,7 @@ function App(): ReactNode {
     const [authenticated, setAuthenticated] = useState(false);
     const token = useAuth();
     const dispatch = useDispatch();
-    const fullProject = useProjectWithFullData(0);
+    const fullProject = useProjectWithFullData(2);
 
     useEffect(() => {
         if (token.accessToken) {
@@ -56,9 +56,9 @@ function App(): ReactNode {
                         <button
                             onClick={async () => {
                                 if (authenticated) {
-                                    const users = await userApi.getUsers();
-                                    console.log(users);
-                                    console.log(fullProject);
+                                    // const users = await userApi.getUsers();
+                                    // console.log(users);
+                                    // console.log(fullProject.lists[0].items);
                                 } else {
                                     setModalOpen(true);
                                 }

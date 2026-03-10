@@ -36,6 +36,5 @@ export const useAllListsWithCards = (projectId: number) =>
 
 export const useProjectWithFullData = (projectId: number) =>
     useSelector((state: RootState) => {
-        selectProjectWithFullData(state, projectId);
-        console.log('projectWithFullData');
+        return selectProjectWithFullData(state, projectId);
     });

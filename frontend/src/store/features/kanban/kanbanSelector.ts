@@ -95,7 +95,6 @@ export const selectProjectWithFullData = createSelector(
     ): (ProjectWithLists & { lists: ListWithCards[] }) | null => {
         const project = projects.byId[projectId];
 
-        console.log('project ' + project);
         if (!project) return null;
 
         const listsWithCards = project.listIds
