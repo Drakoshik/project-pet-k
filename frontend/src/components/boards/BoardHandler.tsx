@@ -14,8 +14,8 @@ function BoardHandler() {
     const project = useProjectWithFullData(2);
 
     useEffect(() => {
-        console.log('Projects updated:', projects);
-        console.log('Projects updated:', project);
+        // console.log('Projects updated:', projects);
+        // console.log('Projects updated:', project);
     }, [projects]);
 
     const firstProject = projects.allIds[0]

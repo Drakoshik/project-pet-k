@@ -55,4 +55,14 @@ export class ProjectMembersPrismaRepository extends ProjectMembersRepository {
       data,
     });
   }
+
+  public async getProjectMembersByProjectId(
+    projectId: number,
+  ): Promise<ProjectMemberDto[]> {
+    return this.databaseService.projectMember.findMany({
+      where: {
+        projectId,
+      },
+    });
+  }
 }

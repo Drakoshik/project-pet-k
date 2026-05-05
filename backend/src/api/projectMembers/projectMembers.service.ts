@@ -12,6 +12,12 @@ export class ProjectMembersService {
     return this.projectMembersRepository.create(dto);
   }
 
+  public async getProjectMembersByProjectId(
+    id: number,
+  ): Promise<CreateProjectMemberDto[] | null> {
+    return this.projectMembersRepository.getProjectMembersByProjectId(id);
+  }
+
   public async delete(id: number) {
     await this.projectMembersRepository.delete(id);
     return {

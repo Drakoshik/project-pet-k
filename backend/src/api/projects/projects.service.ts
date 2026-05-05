@@ -29,18 +29,15 @@ export class ProjectsService {
 
     const lists = await this.listRepository.getListsByProjectId(id);
 
-    // Отримуємо всі картки одним запитом (ефективніше)
     const listIds = lists.map((list) => list.id);
     const allCards = await this.cardsRepository.getCardsByListIds(listIds);
 
-    // Групуємо картки за listId
     const cardsByList = allCards.reduce((acc, card) => {
       if (!acc[card.listId]) acc[card.listId] = [];
       acc[card.listId].push(card);
       return acc;
     }, {});
 
-    // Повертаємо в нормалізованому форматі для Redux
     return {
       project: {
         id: project.id,

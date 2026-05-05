@@ -1,5 +1,4 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { Transform, Type } from 'class-transformer';
 
 export class CreateProjectDTO {
   name: string;
@@ -16,4 +15,9 @@ export class GetProjectsRequestDTO {
   id?: number;
 
   full?: boolean;
+}
+
+export class NormalizedProjectDTO extends ProjectResponseDTO {
+  lists: number[];
+  members: number[];
 }

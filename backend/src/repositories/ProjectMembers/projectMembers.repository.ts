@@ -14,4 +14,8 @@ export abstract class ProjectMembersRepository {
     id: number,
     dto: Partial<ProjectMemberWithoutIdDto>,
   ): Promise<ProjectMemberDto>;
+
+  public abstract getProjectMembersByProjectId(
+    projectId: number,
+  ): Promise<ProjectMemberDto[]>;
 }

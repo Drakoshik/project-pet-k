@@ -11,3 +11,7 @@ export class ListResponseDto extends CreateListDto {
 }
 
 export class UpdateListDto extends PartialType(CreateListDto) {}
+
+export class NormalizedListDto extends ListResponseDto {
+  cards: number[];
+}
